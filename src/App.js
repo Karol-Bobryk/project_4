@@ -5,58 +5,24 @@ function App() {
   const [number1, setnumber1] = useState();
   const [number2, setnumber2] = useState();
   const [order, setOrder] = useState([]);
-  function add() {
-    setOrder("+");
-  }
-  function substract() {
-    setOrder("-");
-  }
-  function divide() {
-    //TODO ERROR should appear on display
-    setOrder("/");
-  }
-  function numop(val) {
-    number1 ? setnumber2(val) : setnumber1(val);
-    order.length() === 3 ? executeOrder(order) : console.log(order.length);
-  }
-  function executeOrder(arr) {
-    switch (arr[1]) {
-      case "+":
-        setnumber1()
-        break;
-    }
-    setOrder([]);
-  }
+  const [disp, setDisp] = useState("");
+
+  const AssignNumber = (val) => {
+    setDisp(disp + val);
+  };
+  const AssignOperation = (val) => {
+    setnumber1(+disp);
+    setOrder(number1);
+  };
   return (
     <div className="App">
       <header className="App-header">
+        {disp}
         <div>
-          <Operation
-            function={() => {
-              add();
-            }}
-            sign="+"
-          />
-          <Operation
-            function={() => {
-              substract();
-            }}
-            sign="-"
-          />
-          <Operation
-            function={() => {
-              divide();
-            }}
-            sign="/"
-          />
-        </div>
-        <div>
-          <Operation
-            function={() => {
-              numop(1);
-            }}
-            sign="1"
-          />
+          <Operation sign="1" function={() => AssignNumber(1)} />
+          <Operation sign="2" function={() => AssignNumber(2)} />
+          <Operation sign="3" function={() => AssignNumber(3)} />
+          <Operation sign="+" function={() => AssignOperation("+")} />
         </div>
       </header>
     </div>
