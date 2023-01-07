@@ -2,7 +2,6 @@ import "./App.css";
 import Operation from "./components/Operation.jsx";
 import { useState, useEffect } from "react";
 function App() {
-  const [number1, setNumber1] = useState(0);
   const [order, setOrder] = useState([]);
   const [display, setDisplay] = useState("");
 
@@ -10,10 +9,14 @@ function App() {
     setDisplay(display + val);
   };
   const AssignOperation = (num, val) => {
-    setNumber1(num);
     setOrder(order.concat([num, val]));
     setDisplay("");
   };
+  const clearState = () => {
+    setOrder([]);
+    setDisplay("");
+  };
+
   const EqualOperation = () => {
     switch (order[1]) {
       case "+":
@@ -31,10 +34,12 @@ function App() {
       case "√":
         setDisplay(Math.sqrt(+order[0]));
         break;
+      case "C":
+        clearState();
+        break;
       default:
         setDisplay("ERR");
     }
-    setNumber1(+display);
   };
   useEffect(() => {
     console.log(display);
@@ -69,8 +74,10 @@ function App() {
           <Operation sign="0" function={() => AssignNumber(0)} />
           <Operation sign="^" function={() => AssignOperation(display, "^")} />
           <Operation sign="√" function={() => AssignOperation(display, "√")} />
+
           <Operation sign="=" function={() => EqualOperation()} />
         </div>
+        <Operation sign="C" function={() => AssignOperation(display, "C")} />
       </header>
     </div>
   );
