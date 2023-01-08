@@ -1,4 +1,3 @@
-import "./App.css";
 import Operation from "./components/Operation.jsx";
 import { useState, useEffect } from "react";
 function App() {
@@ -28,6 +27,9 @@ function App() {
       case "/":
         setDisplay(+order[0] / +display);
         break;
+      case "*":
+        setDisplay(+order[0] * +display);
+        break;
       case "^":
         setDisplay((+order[0]) ** +display);
         break;
@@ -45,40 +47,75 @@ function App() {
     console.log(display);
   }, [display]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>{display}</h1>
-        <div>
-          <div>
-            <Operation sign="1" function={() => AssignNumber(1)} />
-            <Operation sign="2" function={() => AssignNumber(2)} />
-            <Operation sign="3" function={() => AssignNumber(3)} />
+    <div className="h-screen bg-neutral-800 text-slate-300 flex flex-col justify-center items-center">
+      <div className="w-fit">
+        <div className="p-1 h-20 text-right text-2xl border border-violet-600 rounded-lg">
+          {display}
+        </div>
+        <div className="">
+          <div className="">
+            <Operation
+              sign="C"
+              operationStyle={true}
+              function={() => AssignOperation(display, "C")}
+            />
+            <Operation
+              sign="^"
+              operationStyle={true}
+              function={() => AssignOperation(display, "^")}
+            />
+            <Operation
+              sign="√"
+              operationStyle={true}
+              function={() => AssignOperation(display, "√")}
+            />
             <Operation
               sign="+"
+              operationStyle={true}
               function={() => AssignOperation(display, "+")}
             />
           </div>
-          <Operation sign="4" function={() => AssignNumber(4)} />
-          <Operation sign="5" function={() => AssignNumber(5)} />
-          <Operation sign="6" function={() => AssignNumber(6)} />
-          <Operation sign="-" function={() => AssignOperation(display, "-")} />
-          <div>
+
+          <div className="">
             <Operation sign="7" function={() => AssignNumber(7)} />
             <Operation sign="8" function={() => AssignNumber(8)} />
             <Operation sign="9" function={() => AssignNumber(9)} />
             <Operation
               sign="/"
+              operationStyle={true}
               function={() => AssignOperation(display, "/")}
             />
           </div>
-          <Operation sign="0" function={() => AssignNumber(0)} />
-          <Operation sign="^" function={() => AssignOperation(display, "^")} />
-          <Operation sign="√" function={() => AssignOperation(display, "√")} />
-
-          <Operation sign="=" function={() => EqualOperation()} />
+          <div className="">
+            <Operation sign="4" function={() => AssignNumber(4)} />
+            <Operation sign="5" function={() => AssignNumber(5)} />
+            <Operation sign="6" function={() => AssignNumber(6)} />
+            <Operation
+              sign="x"
+              operationStyle={true}
+              function={() => AssignOperation(display, "*")}
+            />
+          </div>
+          <div className="">
+            <Operation sign="1" function={() => AssignNumber(1)} />
+            <Operation sign="2" function={() => AssignNumber(2)} />
+            <Operation sign="3" function={() => AssignNumber(3)} />
+            <Operation
+              sign="-"
+              operationStyle={true}
+              function={() => AssignOperation(display, "-")}
+            />
+          </div>
+          <div className="text-end">
+            <Operation sign="0" function={() => AssignNumber(0)} />
+            <Operation
+              sign="="
+              operationStyle={true}
+              function={() => EqualOperation()}
+            />
+          </div>
         </div>
-        <Operation sign="C" function={() => AssignOperation(display, "C")} />
-      </header>
+      </div>
     </div>
   );
 }
