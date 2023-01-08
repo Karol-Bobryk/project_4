@@ -1,5 +1,5 @@
 import Operation from "./components/Operation.jsx";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 function App() {
   const [order, setOrder] = useState([]);
   const [display, setDisplay] = useState("");
@@ -36,16 +36,10 @@ function App() {
       case "√":
         setDisplay(Math.sqrt(+order[0]));
         break;
-      case "C":
-        clearState();
-        break;
       default:
         setDisplay("ERR");
     }
   };
-  useEffect(() => {
-    console.log(display);
-  }, [display]);
   return (
     <div className="h-screen bg-neutral-800 text-slate-300 flex flex-col justify-center items-center">
       <div className="w-fit">
@@ -57,7 +51,9 @@ function App() {
             <Operation
               sign="C"
               operationStyle={true}
-              function={() => AssignOperation(display, "C")}
+              function={() => {
+                clearState();
+              }}
             />
             <Operation
               sign="^"
