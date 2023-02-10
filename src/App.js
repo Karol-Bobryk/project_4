@@ -39,6 +39,8 @@ function App() {
       default:
         setDisplay("ERR");
     }
+    setOrder([]);
+    console.log(order);
   };
   return (
     <div className="h-screen bg-neutral-800 text-slate-300 flex flex-col justify-center items-center">
