@@ -1,5 +1,5 @@
 import Operation from "./components/Operation.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 function App() {
   const [order, setOrder] = useState([]);
   const [display, setDisplay] = useState("");
@@ -8,14 +8,16 @@ function App() {
     setDisplay(display + val);
   };
   const AssignOperation = (num, val) => {
-    setOrder(order.concat([num, val]));
+    order[1] ? setOrder([order[0], val]) : setOrder(order.concat([num, val]));
     setDisplay("");
   };
   const clearState = () => {
     setOrder([]);
     setDisplay("");
   };
-
+  useEffect(() => {
+    console.log(order);
+  }, [order]);
   const EqualOperation = () => {
     switch (order[1]) {
       case "+":
